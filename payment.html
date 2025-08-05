@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirm & Pay - ACLTech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fa;
+      padding: 30px 15px;
+    }
+
+    .container {
+      max-width: 600px;
+      background: #fff;
+      margin: auto;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #222;
+      margin-bottom: 20px;
+    }
+
+    .order-summary {
+      background: #f0f9ff;
+      border: 1px solid #cce7ff;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
+
+    .order-summary p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      color: #e85d04;
+      font-weight: 600;
+    }
+
+    .btn {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      margin: 10px 0;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: #4cc9f0;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #3bb3d9;
+    }
+
+    .btn-secondary {
+      background: #eee;
+      color: #222;
+    }
+
+    .support, .delivery {
+      font-size: 14px;
+      margin-top: 10px;
+      color: #555;
+    }
+
+    .emoji {
+      font-size: 18px;
+      margin-right: 6px;
+    }
+
+    @media (max-width: 600px) {
+      .order-summary p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+  <div class="container">
+    <h2>🧾 Order Confirmation</h2>
+
+    <div class="order-summary" id="productInfo">
+      <!-- Dynamic order details go here -->
+      <p>Loading order info...</p>
+    </div>
+
+    <a href="#" class="btn btn-primary" id="paymentLink">✅ Proceed to Payment</a>
+    <a href="index.html" class="btn btn-secondary">⬅️ Back to Home</a>
+
+    <div class="delivery"><span class="emoji">🚚</span> Estimated Delivery: 5–7 days after confirmation</div>
+    <div class="support"><span class="emoji">📞</span> Questions? Call us at <strong>+91-8736955329</strong> or <a href="https://wa.me/918736955329" target="_blank">Chat on WhatsApp</a></div>
+  </div>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const build = params.get("build");
+    const price = params.get("price");
+
+    const productInfo = document.getElementById("productInfo");
+    const paymentLink = document.getElementById("paymentLink");
+
+    if (build && price) {
+      productInfo.innerHTML = `
+        <p><strong>Selected Build:</strong> <span class="highlight">₹${build} PC</span></p>
+        <p><strong>Total Amount:</strong> <span class="highlight">₹${price}</span></p>
+        <p><strong>Includes:</strong> Full configuration, software setup, and basic warranty.</p>
+      `;
+
+      paymentLink.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  var options = {
+    "key": "rzp_test_nKOH4DwPOgo6U9", // Replace with your actual Razorpay Key ID
+    "amount": price * 100, // amount in paise
+    "currency": "INR",
+    "name": "ACL TECH",
+    "description": `Payment for ₹${build} PC`,
+    "image": "https://yourlogo.png", // optional
+    "handler": function (response) {
+      alert("✅ Payment Successful! ID: " + response.razorpay_payment_id);
+      window.location.href = "success.html"; // Optional success page
+    },
+    "prefill": {
+      "name": "",
+      "email": "",
+      "contact": ""
+    },
+    "theme": {
+      "color": "#4cc9f0"
+    }
+  };
+
+  var rzp = new Razorpay(options);
+  rzp.open();
+});
+    } else {
+      productInfo.innerHTML = `<p style="color: red;">❌ Invalid product selection. Please go back and try again.</p>`;
+      paymentLink.style.display = "none";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Budget PC Builds</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #003566;
+      padding: 20px;
+    }
+
+    .builds-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .build-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .build-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .price {
+      font-size: 24px;
+      color: #e85d04;
+      margin: 10px 0;
+    }
+
+    .config {
+      font-size: 14px;
+      color: #444;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .buy-btn {
+      background: #4cc9f0;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .buy-btn:hover {
+      background: #3aaff0;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 22px;
+      }
+
+      .price {
+        font-size: 20px;
+      }
+
+      .build-card {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Budget PC Builds</h1>
+
+  <div class="builds-container">
+
+    <!-- ₹15,000 Build -->
+    <div class="build-card">
+      <h3>₹15,000 Build</h3>
+      <div class="price">₹15,000</div>
+      <div class="config">
+        • Intel Core i3 2nd Gen<br>
+        • 4GB DDR3 RAM<br>
+        • 250GB HDD<br>
+        • Basic Cabinet + PSU<br>
+        • Windows 10 Trial
+      </div>
+      <a href="payment.html?build=15k&price=15000" class="buy-btn" target="_blank">Buy Now</a>
+    </div>
+
+    <!-- ₹18,000 Build -->
+    <div class="build-card">
+      <h3>₹18,000 Build</h3>
+      <div class="price">₹18,000</div>
+      <div class="config">
+        • Intel Core i3 3rd Gen<br>
+        • 8GB DDR3 RAM<br>
+        • 500GB HDD<br>
+        • Basic Cabinet + PSU<br>
+        • Windows 10 Activated
+      </div>
+      <a href="payment.html?build=18k&price=18000" class="buy-btn" target="_blank">Buy Now</a>
+    </div>
+
+    <!-- ₹21,000 Build -->
+    <div class="build-card">
+      <h3>₹21,000 Build</h3>
+      <div class="price">₹21,000</div>
+      <div class="config">
+        • Intel Core i5 4th Gen<br>
+        • 8GB DDR3 RAM<br>
+        • 240GB SSD<br>
+        • Mid Tower Cabinet<br>
+        • Activated Windows 10
+      </div>
+      <a href="payment.html?build=21k&price=21000" class="buy-btn" target="_blank" class="buy-btn" target="_blank">Buy Now</a>
+    </div>
+
+    <!-- ₹24,000 Build -->
+    <div class="build-card">
+      <h3>₹24,000 Build</h3>
+      <div class="price">₹24,000</div>
+      <div class="config">
+        • Intel Core i5 6th Gen<br>
+        • 8GB DDR4 RAM<br>
+        • 512GB SSD<br>
+        • RGB Cabinet<br>
+        • WiFi + Activated Windows
+      </div>
+      <a href="payment.html?build=24k&price=24000" class="buy-btn" target="_blank">Buy Now</a>
+    </div>
+
+    <!-- ₹27,000 Build -->
+    <div class="build-card">
+      <h3>₹27,000 Build</h3>
+      <div class="price">₹27,000</div>
+      <div class="config">
+        • Ryzen 3 3200G<br>
+        • 8GB DDR4 RAM<br>
+        • 512GB SSD<br>
+        • Stylish Cabinet + RGB Fans<br>
+        • Windows 11
+      </div>
+      <a href="payment.html?build=27k&price=27000" class="buy-btn" target="_blank">Buy Now</a>
+    </div>
+
+    <!-- ₹30,000 Build -->
+    <div class="build-card">
+      <h3>₹30,000 Build</h3>
+      <div class="price">₹30,000</div>
+      <div class="config">
+        • Ryzen 5 5600G<br>
+        • 16GB DDR4 RAM<br>
+        • 512GB NVMe SSD<br>
+        • Gaming Cabinet + WiFi<br>
+        • Windows 11 Pro
+      </div>
+      <a href="payment.html?build=30k&price=30000" class="buy-btn" target="_blank">Buy Now</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
