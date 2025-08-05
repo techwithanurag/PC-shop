@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game On - Confirm & Pay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(ellipse at top, #0f0f0f 0%, #1a1a1a 100%);
+      background-attachment: fixed;
+      color: #fff;
+      padding: 20px;
+      animation: pulseBg 10s infinite alternate;
+    }
+
+    @keyframes pulseBg {
+      0% { background-color: #0f0f0f; }
+      100% { background-color: #1a1a1a; }
+    }
+
+    .container {
+      max-width: 650px;
+      margin: auto;
+      background: rgba(20, 20, 30, 0.95);
+      border: 2px solid #00f2ff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 30px #00f2ff55;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      color: #00f2ff;
+      margin-bottom: 25px;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    .order-summary {
+      border: 2px dashed #0ff;
+      background: #0a0a0a;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: inset 0 0 15px #0ff4;
+    }
+
+    .order-summary p {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .highlight {
+      color: #00f2ff;
+      font-weight: 600;
+    }
+
+    .btn {
+      display: block;
+      text-align: center;
+      background: linear-gradient(135deg, #00f2ff, #1dd1a1);
+      color: #000;
+      font-weight: 700;
+      padding: 15px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+      margin: 15px 0;
+      box-shadow: 0 0 15px #0ff7;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #0ffb;
+    }
+
+    .info-text {
+      font-size: 14px;
+      color: #ccc;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    a {
+      color: #00f2ff;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>🎮 Confirm Your Gaming Beast</h2>
+
+    <div class="order-summary" id="productInfo">
+      <p>Loading your build...</p>
+    </div>
+
+    <a href="#" class="btn" id="paymentLink">💳 Proceed to Pay</a>
+    <a href="index.html" class="btn" style="background: #333; color: #fff;">⬅️ Back to Home</a>
+
+    <div class="info-text">🚚 Delivery in 5–7 days | 📞 Support: +91-8736955329 | <a href="https://wa.me/918736955329" target="_blank">Chat on WhatsApp</a></div>
+  </div>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const build = params.get("build");
+    const price = params.get("price");
+
+    const productInfo = document.getElementById("productInfo");
+    const paymentLink = document.getElementById("paymentLink");
+
+    if (build && price) {
+      productInfo.innerHTML = `
+        <p><strong>Build Chosen:</strong> <span class="highlight">₹${build} Gaming PC</span></p>
+        <p><strong>Total:</strong> <span class="highlight">₹${price}</span></p>
+        <p><strong>Includes:</strong> Custom configuration, RGB cabinet, software setup, warranty.</p>
+      `;
+
+      paymentLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        var options = {
+          "key": "rzp_test_nKOH4DwPOgo6U9",
+          "amount": price * 100,
+          "currency": "INR",
+          "name": "ACL TECH",
+          "description": `Payment for ₹${build} Gaming PC`,
+          "image": "https://yourlogo.png",
+          "handler": function (response) {
+            alert("✅ Payment Successful! ID: " + response.razorpay_payment_id);
+            window.location.href = "success.html";
+          },
+          "prefill": {
+            "name": "",
+            "email": "",
+            "contact": ""
+          },
+          "theme": {
+            "color": "#00f2ff"
+          }
+        };
+        var rzp = new Razorpay(options);
+        rzp.open();
+      });
+    } else {
+      productInfo.innerHTML = `<p style="color: red;">❌ Invalid build selection.</p>`;
+      paymentLink.style.display = "none";
+    }
+  </script>
+</body>
+</html>
